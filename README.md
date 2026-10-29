@@ -1,39 +1,77 @@
-# Automação de Envio de E-mails com n8n
+# Automação de Envio de E-mails Personalizados com n8n
 
-Projeto de automação desenvolvido utilizando **n8n** para realizar o processamento de informações provenientes de uma tabela de dados (Google Sheets) e executar o envio automatizado de e-mails personalidades de confirmação/boas-vindas via Gmail[cite: 1, 2].
+Projeto de automação utilizando **n8n** para captura automatizada de dados em tempo real a partir de respostas de formulários (Google Sheets) e envio imediato de e-mails de confirmação e boas-vindas totalmente personalizados via Gmail.
+
+> ⚠️ **AVISO IMPORTANTE:** Todos os dados, nomes, empresas e e-mails exibidos nos exemplos e imagens deste repositório são **completamente fictícios** e foram utilizados exclusivamente para fins de demonstração e teste de funcionalidade.
 
 ---
 
-## 📌 Fluxo de Funcionamento
+## 📌 Visão Geral do Fluxo
 
-1. **Gatilho (Google Sheets Trigger):** Monitoriza novas respostas adicionadas a uma planilha associada a um formulário[cite: 1].
-2. **Processamento & Personalização:** Extrai dados do novo contacto, como o nome do cliente, empresa e áreas de interesse[cite: 1].
-3. **Envio (Gmail):** Dispara uma mensagem personalizada com o resumo das informações e próximos passos[cite: 1].
+O fluxo de automação é simples, direto e altamente eficiente:
+
+![Fluxograma do n8n](./images/fluxogram_n8n.png)
+
+1. **Gatilho (Google Sheets Trigger):** O n8n monitora continuamente a adição de novas linhas na planilha conectada.
+2. **Envio Dinâmico (Gmail):** Ao detectar uma nova linha, o n8n mapeia as informações recebidas e dispara uma mensagem personalizada para o destinatário.
+
+---
+
+## 📸 Passo a Passo e Demonstração
+
+### 1. Captura de Dados (Google Forms & Google Sheets)
+O processo inicia quando um cliente em potencial preenche o formulário de cadastro.
+
+![Formulário do Google Forms](./images/google_forms.png)
+
+As respostas são enviadas automaticamente para uma planilha do Google Sheets, onde cada coluna representa um campo específico do formulário:
+
+![Planilha com Dados Fictícios](./images/planilha_dadosficticios.png)
+
+---
+
+### 2. Mapeamento de Variáveis no n8n
+O n8n permite capturar o conteúdo de cada coluna da planilha e vinculá-lo como **variável dinâmica** no corpo do e-mail usando a sintaxe `{{ $json['NOME_DA_COLUNA'] }}`.
+
+No painel do nó do **Gmail**, mapeamos o e-mail do destinatário no campo `To` e estruturamos a mensagem:
+
+![Configuração do Nó do Gmail](./images/node_google_email.png)
+
+Ao abrir o editor de expressões no n8n, é possível visualizar em tempo real a substituição dos campos da planilha pelas variáveis correspondentes na mensagem:
+
+![Mapeamento de Variáveis na Mensagem](./images/mensagem_programada_email.png)
+
+---
+
+### 3. Resultado Final (E-mail Enviado)
+O e-mail final é montado e entregue de forma automática ao cliente com todos os campos personalizados preenchidos corretamente de acordo com as respostas enviadas:
+
+![E-mail Enviado de Exemplo](./images/email_enviado.png)
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **[n8n](https://n8n.io/):** Plataforma de automação de fluxos de trabalho[cite: 1, 2].
-- **Google Sheets:** Origem e captura dos dados[cite: 1].
-- **Gmail:** Serviço de envio dos e-mails[cite: 1].
+- **[n8n](https://n8n.io/):** Plataforma de automação de fluxos de trabalho.
+- **Google Sheets:** Armazenamento e captura das respostas do formulário.
+- **Gmail:** Disparo automatizado dos e-mails.
 
 ---
 
-## 🚀 Como Importar e Utilizar
+## 🚀 Como Importar e Executar este Workflow
 
-1. **Transferir o Workflow:**
-   - Transfere o ficheiro [`n8n_enviodeEmail02.json`](./n8n_enviodeEmail02.json) presente neste repositório.
+1. **Fazer o Download:**
+   - Faça o download do arquivo JSON do fluxo presente neste repositório: [`n8n_enviodeEmail02.json`](./n8n_enviodeEmail02.json).
 
 2. **Importar no n8n:**
-   - Abre a tua instância do n8n.
-   - Acede ao menu **Workflows** > **Import from File...** e seleciona o ficheiro `.json`[cite: 2].
+   - Abra a sua instância do n8n.
+   - Vá no menu **Workflows** > **Import from File...** e selecione o arquivo `.json`.
 
-3. **Configurar Credenciais:**
-   - Conecta a tua conta do **Google Sheets** no nó de trigger[cite: 1].
-   - Conecta a tua conta do **Gmail** no nó de envio de e-mail[cite: 1].
+3. **Autenticar Credenciais:**
+   - Configure sua conta do **Google Sheets** no nó de gatilho.
+   - Configure sua conta do **Gmail** no nó de envio.
 
-4. **Ajustar Parâmetros:**
-   - Substitui o ID/URL da planilha Google Sheets no nó de gatilho[cite: 1].
-   - Personaliza o corpo do e-mail e os links no nó do Gmail conforme necessário[cite: 1].
-   - Ativa o workflow!
+4. **Vincular sua Planilha:**
+   - Altere o ID/URL do nó do Google Sheets para apontar para a sua planilha.
+   - Verifique se o nome das colunas da sua planilha corresponde às variáveis mapeadas na mensagem `{{ $json['Sua Coluna'] }}`.
+   - Ative o fluxo!
