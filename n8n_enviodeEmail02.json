@@ -1,0 +1,97 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          // [COMENTÁRIO]: Insira o ID ou URL da sua planilha do Google Sheets aqui
+          "value": "COLOQUE_O_ID_OU_URL_DA_ SUA_PLANILHA_AQUI",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1707733955,
+          "mode": "list",
+          "cachedResultName": "Respostas ao formulário 1",
+          // [COMENTÁRIO]: O link de cache do Sheets foi removido para privacidade
+          "cachedResultUrl": ""
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c5b81909-19a4-4e2b-80bb-02d00698a2e8",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "felKEbS0hkzc8VFA",
+          "name": "Google Sheets Trigger account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['E-mail de Contato Principal '] }}",
+        "subject": "Recebemos seu contato!",
+        "emailType": "text",
+        "message": "=Olá,{{ $json['Nome Completo'] }} , tudo bem? \n\nRecebemos o seu formulário de interesse em nossos serviços de marketing e já estamos analisando as informações da {{ $json['Nome da Empresa'] }}.\n\nÉ muito bom saber que vocês estão buscando evoluir o foco em {{ $json['Qual o seu foco em marketing nesse momento que podemos ajudar? '] }} neste momento.    \n\nQuais são os próximos passos?   \n\nNossa equipe técnica fará uma triagem inicial baseada na sua urgência e perfil de negócio.    Em breve, um de nossos especialistas entrará em contato diretamente pelo e-mail: {{ $json['E-mail de Contato Principal '] }}      \n\nEnquanto isso, você pode conferir alguns de nossos cases de sucesso no link abaixo: [LINK DO SEU PORTFÓLIO/SITE]    \n\nEstamos ansiosos para conversarmos e ajudar vocês a escalar seus resultados!       \n\n\nAtenciosamente,",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "543da6f4-44f2-4b74-ad58-b02b0d0c7947",
+      "name": "Send a message",
+      "webhookId": "5f7212d2-c177-4b69-af4d-464b64688ccf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KNBKST6qnmfnf5RY",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "e42f21c6-87bd-444f-85a4-645266134985",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e2c7fbc993ab8c8b0a153be74e7a29c0cf125d83af2291645f0fec573335e70a"
+  },
+  "nodeGroups": [],
+  "id": "AnsSA9htZomF38zd",
+  "tags": []
+}
